@@ -7,6 +7,7 @@ class Controller {
 			pen: canvas.getContext('2d'),
 		};
 		this.setCanvasSize(canvas);
+		this.randomizeColor();
 		this.item = new Item(this.canvas.size);
 
 		setInterval(() => {
@@ -30,8 +31,7 @@ class Controller {
 		let { pen } = this.canvas;
 		let { item } = this;
 
-		pen.fillStyle = this.item.color;
-		pen.fillRect(item.coords.x - (item.size.width / 2), item.coords.y - (item.size.height / 2), item.size.width, item.size.height);
+		pen.drawImage(item.image, item.coords.x - (item.size.width / 2), item.coords.y - (item.size.height / 2), item.size.width, item.size.height);
 	}
 
 	checkCollision() {
@@ -49,8 +49,8 @@ class Controller {
 			oobY = true;
 		}
 
-		if(oobX) item.changeDirection(true);
-		if(oobY) item.changeDirection(false);
+		if(oobX) { item.changeDirection(true); this.randomizeColor(); }
+		if(oobY) { item.changeDirection(false); this.randomizeColor(); }
 	}
 
 	setCanvasSize(canvas) {
@@ -60,5 +60,9 @@ class Controller {
 			height: canvas.height,
 			width: canvas.width,
 		};
+	}
+
+	randomizeColor() {
+		this.canvas.pen.filter = `hue-rotate(${Math.floor(Math.random() * 360)}deg)`;
 	}
 }

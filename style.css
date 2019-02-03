@@ -3,6 +3,10 @@
 	padding: 0;
 }
 
+.dvdImage {
+	display: none;
+}
+
 .canvasWrapper {
 	display: flex;
 	justify-content: center;
