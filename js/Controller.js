@@ -2,20 +2,23 @@ class Controller {
 	constructor() {
 		let canvas = document.querySelector('canvas');
 		this.canvas = {
+			size: {},
 			element: canvas,
-			size: {
-				height: canvas.height,
-				width: canvas.width,
-			},
 			pen: canvas.getContext('2d'),
 		};
+		this.setCanvasSize(canvas);
 		this.item = new Item(this.canvas.size);
-		
+
 		setInterval(() => {
 			this.checkCollision();
 			this.item.move();
 			this.drawItem();
-		}, 25)
+		}, 25);
+
+		window.addEventListener('resize', () => {
+			this.setCanvasSize(canvas);
+			this.item.setItemSize(this.canvas.size);
+		});
 	}
 
 	clearCanvas() {
@@ -48,5 +51,14 @@ class Controller {
 
 		if(oobX) item.changeDirection(true);
 		if(oobY) item.changeDirection(false);
+	}
+
+	setCanvasSize(canvas) {
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		this.canvas.size = {
+			height: canvas.height,
+			width: canvas.width,
+		};
 	}
 }

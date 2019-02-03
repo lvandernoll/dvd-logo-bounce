@@ -1,14 +1,12 @@
 class Item {
 	constructor(canvasSize) {
-		this.size = {
-			height: 50,
-			width: 50,
-		};
+		this.size;
+		this.setItemSize(canvasSize);
+		this.speed = 5;
 		this.coords = {
 			x: Math.floor(Math.random() * (canvasSize.width * .8)) + canvasSize.width * .1,
 			y: Math.floor(Math.random() * (canvasSize.height * .8)) + canvasSize.height * .1,
 		};
-		this.speed = 5;
 		this.velocity = {
 			x: Math.random() >= 0.5 ? this.speed : -this.speed,
 			y: Math.random() >= 0.5 ? this.speed : -this.speed,
@@ -29,5 +27,12 @@ class Item {
 
 	randomizeColor() {
 		this.color = `rgb(${(Math.random() * 256) + 1}, ${(Math.random() * 256) + 1}, ${(Math.random() * 256) + 1})`;
+	}
+
+	setItemSize(canvasSize) {
+		this.size = {
+			height: canvasSize.width / 15,
+			width: canvasSize.width / 15,
+		}
 	}
 }
