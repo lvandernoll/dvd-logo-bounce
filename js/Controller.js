@@ -54,8 +54,8 @@ class Controller {
 	}
 
 	setCanvasSize(canvas) {
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+		canvas.width = document.documentElement.clientWidth;
+		canvas.height = document.documentElement.clientHeight;
 		this.canvas.size = {
 			height: canvas.height,
 			width: canvas.width,
